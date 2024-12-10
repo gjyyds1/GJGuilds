@@ -3,7 +3,7 @@ name: Maven Build and Release
 on:
   push:
     branches:
-      - main  # 你可以根据需要更改分支名称
+      - master
 
 jobs:
   build:
