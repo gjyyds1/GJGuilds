@@ -1,0 +1,42 @@
+name: GJGuilds
+version: '1.0.0-SNAPSHOT'
+main: us.kg.gjyyds1.GJGuilds
+api-version: '1.21'
+authors: [ gjyyds1 ]
+description: 公会！
+commands:
+  guild:
+    description: 公会管理插件
+    usage: /guild <subcommand> [args]
+
+permissions:
+  gj.guild.create:
+    description: 允许创建公会
+    default: op
+  gj.guild.admin.remove:
+    description: 允许移除公会区域
+    default: op
+  gj.guild.tpset:
+    description: 允许设置公会传送点
+    default: true
+  gj.guild.save.exp:
+    description: 允许公会成员保存经验
+    default: true
+  gj.guild.save.money:
+    description: 允许公会成员保存金钱
+    default: true
+  gj.guild.join:
+    description: 允许加入公会
+    default: true
+  gj.guild.warp.create:
+    description: 允许创建公会传送点
+    default: op
+  gj.guild.warp.remove:
+    description: 允许移除公会传送点
+    default: op
+  gj.guild.tp:
+    description: 允许传送到公会传送点
+    default: true
+  gj.guild.pvp:
+    description: 允许公会成员PvP
+    default: op
