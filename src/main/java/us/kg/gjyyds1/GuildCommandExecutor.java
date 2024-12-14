@@ -155,7 +155,8 @@ public class GuildCommandExecutor implements CommandExecutor {
                 plugin.getMessageHandler().sendMessage(player, "deduct-money-failed");
             }
         } else if ("all".equalsIgnoreCase(type)) {
-            plugin.getMessageHandler().sendMessage(player, "resources-saved");
+            player.sendMessage("未完成...");
+//            plugin.getMessageHandler().sendMessage(player, "resources-saved");
         } else {
             plugin.getMessageHandler().sendMessage(player, "unknown-type", type);
         }
@@ -343,10 +344,14 @@ public class GuildCommandExecutor implements CommandExecutor {
     }
 
     private boolean deductPlayerExperience(Player player, int amount) {
-        // Placeholder method for deducting player experience
-        // Replace this with actual implementation if needed
-        plugin.getMessageHandler().sendMessage(player, "experience-deducted", String.valueOf(amount));
-        return true; // Return true if deduction was successful
+        if (player.getExp() > amount) {
+            player.setExp(player.getExp() - amount);
+            plugin.getMessageHandler().sendMessage(player, "experience-deducted", String.valueOf(amount));
+            return true;
+        } else {
+            player.sendMessage("经验不足，无法扣除！");
+            return false;
+        }
     }
 }
 
