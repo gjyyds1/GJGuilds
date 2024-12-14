@@ -171,12 +171,26 @@ public class GuildCommandExecutor implements CommandExecutor {
             return;
         }
         if (args[1].equalsIgnoreCase("join")) {
-            plugin.getPvPState().put(player.getUniqueId(), true);
-            plugin.getMessageHandler().sendMessage(player, "joined-pvp");
-        } else {
-            plugin.getPvPState().remove(player.getUniqueId());
-            plugin.getMessageHandler().sendMessage(player, "left-pvp");
+            handlePVPJoin(player);
+        } else if (args[1].equalsIgnoreCase("exit")) {
+            handlePVPExit(player);
         }
+    }
+
+    private void handlePVPJoin(Player player) {
+        plugin.getPvPState().put(player.getUniqueId(), true);
+        plugin.savePlayerLocation(player);
+        player.teleport(plugin.getConfigProcess().getArenaLocation());
+        plugin.getMessageHandler().sendMessage(player, "joined-pvp");
+    }
+
+    private void handlePVPExit(Player player) {
+        plugin.getPvPState().remove(player.getUniqueId());
+        Location savedLocation = plugin.restorePlayerLocation(player);
+        if (savedLocation != null) {
+            player.teleport(savedLocation);
+        }
+        plugin.getMessageHandler().sendMessage(player, "left-pvp");
     }
 
     private void handleWarp(Player player, String[] args) {

@@ -2,6 +2,7 @@ package us.kg.gjyyds1;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,6 +21,7 @@ public final class GJGuilds extends JavaPlugin {
     private PvPState pvPState;
     private PermissionManager permissionManager;
     private XConomyAPI xcapi;
+    private Map<UUID, Location> playerLocations = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -42,16 +44,19 @@ public final class GJGuilds extends JavaPlugin {
         databaseManager.initDatabase();
         loadGuildsFromDatabase();
 
-        // Initialize XconomyAPI
+        // Initialize XConomyAPI
         Plugin xconomyPlugin = Bukkit.getServer().getPluginManager().getPlugin("Xconomy");
         if (xconomyPlugin != null && xconomyPlugin.isEnabled()) {
             xcapi = (XConomyAPI) xconomyPlugin;
-            getLogger().info("成功加载XconomyAPI");
+            getLogger().info("成功加载XConomyAPI");
         } else {
             getLogger().severe("Xconomy 插件未启用或未找到！");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+
+        // Initialize PvP state
+        pvPState = new PvPState();
     }
 
     @Override
@@ -95,6 +100,18 @@ public final class GJGuilds extends JavaPlugin {
             }
         }
         return null;
+    }
+
+    public void savePlayerLocation(Player player) {
+        playerLocations.put(player.getUniqueId(), player.getLocation());
+    }
+
+    public Location restorePlayerLocation(Player player) {
+        return playerLocations.remove(player.getUniqueId());
+    }
+
+    public ConfigProcess getConfigProcess() {
+        return configProcess;
     }
 }
 
