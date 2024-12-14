@@ -26,8 +26,9 @@ GJGuilds 是一个功能丰富的 Minecraft 插件，旨在增强服务器上的
     - 在服务器启动日志中确认 GJGuilds 插件已成功加载。
 
 4. **配置插件**:
-    - 暂无awa
-    - config仍然为开发中功能...
+    - 配置 `config.yml` 文件，目前仅可以设置PVP擂台的位置
+    - 包括：x,y,z,world,yaw,pitch
+    - 然后重启服务器（重载功能未完善，热重载未测试）
 
 5. **依赖插件**:
     - 确保服务器上已安装并启用了 [XConomy](https://www.spigotmc.org/resources/xconomy.75669/) 插件与[Vault](https://www.spigotmc.org/resources/vault.34315/) 插件，用于资金管理。
